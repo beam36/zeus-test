@@ -4,12 +4,8 @@ import athletesImageDesktop from './assets/athletes-desktop.png';
 import playersImageDesktop from './assets/players-desktop.png';
 import athletesImageTablet from './assets/athletes-tablet.png';
 import playersImageTablet from './assets/players-tablet.png';
-
-const QUERIES = {
-  tabletOnly: '(max-width: 1200px) and (min-width: 768px)',
-  tabletAndSmaller: '(max-width: 1200px)',
-  mobileAndSmaller: '(max-width: 768px)',
-};
+import Carousel from './components/Carousel';
+import { ATHLETES_ITEMS, PLAYERS_ITEMS, QUERIES } from './constant';
 
 const Section = styled.section`
   position: relative;
@@ -36,6 +32,10 @@ const AthletesImage = styled.picture`
     top: 70px;
     left: 0;
   }
+
+  @media (${QUERIES.mobileAndSmaller}) {
+    display: none;
+  }
 `;
 
 const PlayersImage = styled.picture`
@@ -58,6 +58,10 @@ const PlayersImage = styled.picture`
     right: 0;
     width: 437px;
   }
+
+  @media (${QUERIES.mobileAndSmaller}) {
+    display: none;
+  }
 `;
 
 const Heading = styled.h1<{ side: 'left' | 'right' }>`
@@ -73,6 +77,20 @@ const Heading = styled.h1<{ side: 'left' | 'right' }>`
     padding-top: 50px;
     padding-left: ${(props) => (props.side === 'left' ? '30px' : '37.89%')};
     margin-bottom: 15px;
+  }
+
+  @media (${QUERIES.mobileAndSmaller}) {
+    font-size: 50px;
+    line-height: 59px;
+    padding-top: 20px;
+    padding-left: 20px;
+    margin-bottom: 0;
+  }
+`;
+
+const DesktopItems = styled.ol`
+  @media (${QUERIES.mobileAndSmaller}) {
+    display: none;
   }
 `;
 
@@ -102,12 +120,27 @@ const Text = styled.p<{ color?: 'white'; side: 'left' | 'right' }>`
   }
 `;
 
+const MobileItems = styled.div`
+  display: none;
+  @media (${QUERIES.mobileAndSmaller}) {
+    display: revert;
+  }
+`;
+
+const MobileAthletesImagePlaceholder = styled.div`
+  height: 251px;
+`;
+
+const MobilePlayersImagePlaceholder = styled.div`
+  height: 220px;
+`;
+
 function App() {
   return (
     <>
       <Section>
         <Heading side="right">ATHLETES</Heading>
-        <ol>
+        <DesktopItems>
           <Item side="right">
             <ItemHeading number="01">CONNECTION</ItemHeading>
             <Text side="right">
@@ -132,7 +165,11 @@ function App() {
               Access to training classes, tutor sessions, etc
             </Text>
           </Item>
-        </ol>
+        </DesktopItems>
+        <MobileItems>
+          <MobileAthletesImagePlaceholder />
+          <Carousel items={ATHLETES_ITEMS} />
+        </MobileItems>
         <AthletesImage>
           <source media={QUERIES.tabletOnly} srcSet={athletesImageTablet} />
           <img src={athletesImageDesktop} />
@@ -140,7 +177,7 @@ function App() {
       </Section>
       <Section>
         <Heading side="left">PLAYERS</Heading>
-        <ol>
+        <DesktopItems>
           <Item side="left">
             <ItemHeading number="01">CONNECTION</ItemHeading>
             <Text side="left">
@@ -171,7 +208,11 @@ function App() {
             <source media={QUERIES.tabletOnly} srcSet={playersImageTablet} />
             <img src={playersImageDesktop} />
           </PlayersImage>
-        </ol>
+        </DesktopItems>
+        <MobileItems>
+          <MobilePlayersImagePlaceholder />
+          <Carousel items={PLAYERS_ITEMS} />
+        </MobileItems>
       </Section>
     </>
   );
