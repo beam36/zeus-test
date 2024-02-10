@@ -1,40 +1,62 @@
 import styled from 'styled-components';
 import ItemHeading from './components/ItemHeading';
 import athletesImageDesktop from './assets/athletes-desktop.png';
-import playerImageDesktop from './assets/players-desktop.png';
-// import athletesImageTablet from '/assets/athletes-tablet.png';
-// import playerImageTablet from '/assets/players-tablet.png';
+import playersImageDesktop from './assets/players-desktop.png';
+import athletesImageTablet from './assets/athletes-tablet.png';
+import playersImageTablet from './assets/players-tablet.png';
 
 const QUERIES = {
-  tabletAndSmaller: '(max-width: 1300px)',
+  tabletOnly: '(max-width: 1200px) and (min-width: 768px)',
+  tabletAndSmaller: '(max-width: 1200px)',
   mobileAndSmaller: '(max-width: 768px)',
 };
 
 const Section = styled.section`
   position: relative;
+  overflow-x: clip;
 `;
 
-const AthletesImage = styled.img`
+const AthletesImage = styled.picture`
   position: absolute;
   top: 50px;
   left: 9.11%;
-  max-width: 42%;
-  max-height: calc(100% + 20px);
+  width: 678px;
+  & img {
+    width: 100%;
+  }
+
+  @media (max-width: 1550px) {
+    top: 70px;
+    left: 7%;
+    width: 45%;
+  }
 
   @media (${QUERIES.tabletAndSmaller}) {
-    display: none;
+    width: 360px;
+    top: 70px;
+    left: 0;
   }
 `;
 
-const PlayersImage = styled.img`
+const PlayersImage = styled.picture`
   position: absolute;
   top: 10px;
   right: 6.51%;
-  max-width: 51.6%;
-  max-height: 93.5%;
+  width: 991px;
+  & img {
+    width: 100%;
+  }
+
+  @media (max-width: 1700px) {
+    right: auto;
+    left: 50%;
+  }
 
   @media (${QUERIES.tabletAndSmaller}) {
-    display: none;
+    top: 31px;
+    left: auto;
+    right: 0;
+    width: 437px;
   }
 `;
 
@@ -76,7 +98,6 @@ const Text = styled.p<{ color?: 'white'; side: 'left' | 'right' }>`
   @media (${QUERIES.tabletAndSmaller}) {
     font-size: 18px;
     letter-spacing: 0px;
-
     max-width: ${(props) => (props.side === 'left' ? '58.2%' : 'none')};
   }
 `;
@@ -112,7 +133,10 @@ function App() {
             </Text>
           </Item>
         </ol>
-        <AthletesImage src={athletesImageDesktop} />
+        <AthletesImage>
+          <source media={QUERIES.tabletOnly} srcSet={athletesImageTablet} />
+          <img src={athletesImageDesktop} />
+        </AthletesImage>
       </Section>
       <Section>
         <Heading side="left">PLAYERS</Heading>
@@ -143,7 +167,10 @@ function App() {
               Save your time, recruit proper athlets for your team.
             </Text>
           </Item>
-          <PlayersImage src={playerImageDesktop} />
+          <PlayersImage>
+            <source media={QUERIES.tabletOnly} srcSet={playersImageTablet} />
+            <img src={playersImageDesktop} />
+          </PlayersImage>
         </ol>
       </Section>
     </>
