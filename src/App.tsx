@@ -1,22 +1,42 @@
 import styled from 'styled-components';
 import ItemHeading from './components/ItemHeading';
+import athletesImageDesktop from './assets/athletes-desktop.png';
+import playerImageDesktop from './assets/players-desktop.png';
+
+const Section = styled.section`
+  position: relative;
+`;
+
+const AthletesImage = styled.img`
+  position: absolute;
+  top: 50px;
+  left: 9.11%;
+  max-width: 42%;
+  max-height: calc(100% + 20px);
+`;
+
+const PlayersImage = styled.img`
+  position: absolute;
+  top: 10px;
+  right: 6.51%;
+  max-width: 51.6%;
+  max-height: 93.5%;
+`;
 
 const Heading = styled.h1<{ side: 'left' | 'right' }>`
   color: #e7e7e7;
   font-size: 90px;
   font-weight: 400;
   line-height: 105.47px;
-  ${(props) => props.side === 'left' && 'padding-left: 16.77%;'}
-  ${(props) => props.side === 'right' && 'padding-left: 52.5%;'}
   padding-top: 100px;
+  padding-left: ${(props) => (props.side === 'left' ? '16.77%' : '52.5%')};
   margin-bottom: ${(props) => (props.side === 'left' ? '20px' : '10px')};
 `;
 
 const Item = styled.li<{ backgroundColor?: string; side: 'left' | 'right' }>`
   background-color: ${(props) => props.backgroundColor || '#ffffff'};
   padding: 60px 0;
-  ${(props) => props.side === 'left' && 'padding-left: 16.77%;'}
-  ${(props) => props.side === 'right' && 'padding-left: 52.5%;'}
+  padding-left: ${(props) => (props.side === 'left' ? '16.77%' : '52.5%')};
 `;
 
 const Text = styled.p<{ color?: 'white' }>`
@@ -31,7 +51,7 @@ const Text = styled.p<{ color?: 'white' }>`
 function App() {
   return (
     <>
-      <section>
+      <Section>
         <Heading side="right">ATHLETES</Heading>
         <ol>
           <Item side="right">
@@ -59,8 +79,9 @@ function App() {
             </Text>
           </Item>
         </ol>
-      </section>
-      <section>
+        <AthletesImage src={athletesImageDesktop} />
+      </Section>
+      <Section>
         <Heading side="left">PLAYERS</Heading>
         <ol>
           <Item side="left">
@@ -89,8 +110,9 @@ function App() {
               Save your time, recruit proper athlets for your team.
             </Text>
           </Item>
+          <PlayersImage src={playerImageDesktop} />
         </ol>
-      </section>
+      </Section>
     </>
   );
 }
