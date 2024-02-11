@@ -1,7 +1,7 @@
 const QUERIES = {
   tabletOnly: '(max-width: 1200px) and (min-width: 768px)',
   tabletAndSmaller: '(max-width: 1200px)',
-  mobileAndSmaller: '(max-width: 768px)',
+  mobileAndSmaller: '(max-width: 767px)',
 };
 
 const ATHLETES_ITEMS = [
