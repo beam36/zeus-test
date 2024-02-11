@@ -4,12 +4,15 @@ import athletesImageDesktop from './assets/athletes-desktop.png';
 import playersImageDesktop from './assets/players-desktop.png';
 import athletesImageTablet from './assets/athletes-tablet.png';
 import playersImageTablet from './assets/players-tablet.png';
+import athletesImageMobile from './assets/athletes-mobile.png';
+import playersImageMobile from './assets/players-mobile.png';
 import Carousel from './components/Carousel';
 import { ATHLETES_ITEMS, PLAYERS_ITEMS, QUERIES } from './constant';
 
 const Section = styled.section`
   position: relative;
   overflow-x: clip;
+  min-width: 320px;
 `;
 
 const AthletesImage = styled.picture`
@@ -34,7 +37,11 @@ const AthletesImage = styled.picture`
   }
 
   @media (${QUERIES.mobileAndSmaller}) {
-    display: none;
+    z-index: 30;
+    top: 94px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 218px;
   }
 `;
 
@@ -60,7 +67,11 @@ const PlayersImage = styled.picture`
   }
 
   @media (${QUERIES.mobileAndSmaller}) {
-    display: none;
+    z-index: 30;
+    top: 94px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 302px;
   }
 `;
 
@@ -142,27 +153,26 @@ function App() {
         <Heading side="right">ATHLETES</Heading>
         <DesktopItems>
           <Item side="right">
-            <ItemHeading number="01">CONNECTION</ItemHeading>
-            <Text side="right">
-              Connect with coaches directly, you can ping coaches to view
-              profile.
-            </Text>
+            <ItemHeading number={ATHLETES_ITEMS[0].number}>
+              {ATHLETES_ITEMS[0].heading}
+            </ItemHeading>
+            <Text side="right">{ATHLETES_ITEMS[0].text}</Text>
           </Item>
           <Item backgroundColor="#f5f4f9" side="right">
-            <ItemHeading number="02">COLLABORATION</ItemHeading>
-            <Text side="right">
-              Work with other student athletes to increase visability. When you
-              share and like other players videos it will increase your
-              visability as a player. This is the team work aspect to Surface 1.
-            </Text>
+            <ItemHeading number={ATHLETES_ITEMS[1].number}>
+              {ATHLETES_ITEMS[1].heading}
+            </ItemHeading>
+            <Text side="right">{ATHLETES_ITEMS[1].text}</Text>
           </Item>
           <Item backgroundColor="#5e3db3" side="right">
-            <ItemHeading number="03" numberUnderlineColor="white">
-              GROWTH
+            <ItemHeading
+              number={ATHLETES_ITEMS[2].number}
+              numberUnderlineColor="white"
+            >
+              {ATHLETES_ITEMS[2].heading}
             </ItemHeading>
             <Text color="white" side="right">
-              Resources and tools for you to get better as a student Athelte.
-              Access to training classes, tutor sessions, etc
+              {ATHLETES_ITEMS[2].text}
             </Text>
           </Item>
         </DesktopItems>
@@ -172,6 +182,10 @@ function App() {
         </MobileItems>
         <AthletesImage>
           <source media={QUERIES.tabletOnly} srcSet={athletesImageTablet} />
+          <source
+            media={QUERIES.mobileAndSmaller}
+            srcSet={athletesImageMobile}
+          />
           <img src={athletesImageDesktop} />
         </AthletesImage>
       </Section>
@@ -179,40 +193,42 @@ function App() {
         <Heading side="left">PLAYERS</Heading>
         <DesktopItems>
           <Item side="left">
-            <ItemHeading number="01">CONNECTION</ItemHeading>
-            <Text side="left">
-              Connect with talented athlete directly, you can watch their skills
-              through video showreels directly from Surface 1.
-            </Text>
+            <ItemHeading number={PLAYERS_ITEMS[0].number}>
+              {PLAYERS_ITEMS[0].heading}
+            </ItemHeading>
+            <Text side="left">{PLAYERS_ITEMS[0].text}</Text>
           </Item>
           <Item backgroundColor="#f5f4f9" side="left">
-            <ItemHeading number="02">COLLABORATION</ItemHeading>
-            <Text side="left">
-              Work with recruiter to increase your chances of finding talented
-              athlete.
-            </Text>
+            <ItemHeading number={PLAYERS_ITEMS[1].number}>
+              {PLAYERS_ITEMS[1].heading}
+            </ItemHeading>
+            <Text side="left">{PLAYERS_ITEMS[1].text}</Text>
           </Item>
           <Item backgroundColor="#090c35" side="left">
             <ItemHeading
-              number="03"
+              number={PLAYERS_ITEMS[2].number}
               numberColor="purple"
               numberUnderlineColor="white"
             >
-              GROWTH
+              {PLAYERS_ITEMS[2].heading}
             </ItemHeading>
             <Text color="white" side="left">
-              Save your time, recruit proper athlets for your team.
+              {PLAYERS_ITEMS[2].text}
             </Text>
           </Item>
-          <PlayersImage>
-            <source media={QUERIES.tabletOnly} srcSet={playersImageTablet} />
-            <img src={playersImageDesktop} />
-          </PlayersImage>
         </DesktopItems>
         <MobileItems>
           <MobilePlayersImagePlaceholder />
           <Carousel items={PLAYERS_ITEMS} />
         </MobileItems>
+        <PlayersImage>
+          <source media={QUERIES.tabletOnly} srcSet={playersImageTablet} />
+          <source
+            media={QUERIES.mobileAndSmaller}
+            srcSet={playersImageMobile}
+          />
+          <img src={playersImageDesktop} />
+        </PlayersImage>
       </Section>
     </>
   );
